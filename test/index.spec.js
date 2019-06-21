@@ -1,4 +1,4 @@
-const qthLocator = require('./index');
+const qthLocator = require('../src/index');
 
 describe('QTH locator', () => {
   it('Can tell if input is valid locator string', () => {
