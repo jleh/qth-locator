@@ -1,0 +1,22 @@
+{
+  "name": "qth-locator",
+  "version": "1.0.0",
+  "description": "Maidenhead locator calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "maidenhead",
+    "ham",
+    "radio",
+    "qth",
+    "locator"
+  ],
+  "author": "Juuso Lehtinen",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "jest": "^24.8.0"
+  }
+}
