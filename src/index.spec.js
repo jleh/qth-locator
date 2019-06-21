@@ -15,4 +15,8 @@ describe('QTH locator', () => {
     expectCoordinates(qthLocator.locatorToLatLng('KP20le'), 60.188, 24.958);
     expectCoordinates(qthLocator.locatorToLatLng('FN31pr'), 41.729, -72.708);
   });
+
+  it('Can calculate distance between two squares', () => {
+    expect(qthLocator.distance('KP20le', 'KP21ol')).toBeCloseTo(144.26);
+  });
 });

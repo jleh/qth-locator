@@ -26,7 +26,24 @@ const locatorToLatLng = (locatorString) => {
   ];
 };
 
+const degToRad = deg => (deg % 360) * Math.PI /180;
+
+const distance = (from, to) => {
+  const fromCoords = locatorToLatLng(from);
+  const toCoords = locatorToLatLng(to);
+  const dLat = degToRad(toCoords[0] - fromCoords[0]);
+  const dLon = degToRad(toCoords[1] - fromCoords[1]);
+  const fromLat = degToRad(fromCoords[0]);
+  const toLat = degToRad(toCoords[0]);
+
+  const a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(fromLat) * Math.cos(toLat);
+  const b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return b * 6371;
+};
+
 module.exports = {
   isValidLocatorString,
-  locatorToLatLng
+  locatorToLatLng,
+  distance
 };
