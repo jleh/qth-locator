@@ -2,7 +2,7 @@
 
 Operations with [Maidenhead locator system](https://en.wikipedia.org/wiki/Maidenhead_Locator_System)
 
-## Operations
+## Usage
 
 ```javascript
 const { locatorToLatLng, distance } = require('qth-locator');
