@@ -59,24 +59,17 @@ describe('QTH locator', () => {
     expectInvalifGridErr(qthLocator.locatorToLatLng,'RZ73');
   });
 
-  // it('Detect debatable grid', () => {   
-  //   expectInvalifGridErr(qthLocator.locatorToLatLng,'RR73');
-  // });
+  it('Locate debatable grid - It is in spec!', () => {   
+    expectCoordinates(qthLocator.locatorToLatLng('RR73'), 83.479, 174.96); 
+  });
 
   it('Detect short grid', () => {   
     expectInvalifGridErr(qthLocator.locatorToLatLng,'R73');
   });
 
-  it('detect invaild grid in ', () => {   
-    expectInvalifGridErr(qthLocator.bearingDistance,'RS73', 'FN30qr');
-  });
-
-  it('Can calculate distance and bearing between two close squares', () => {   
-    expectInvalifGridErr(qthLocator.bearingDistance,'FN20qr', 'FN3');
-  });
-
-  it('Can calculate distance and bearing between two close squares', () => {   
+  it('detect invalid grid in bearingDistance 1', () => {   
     expectInvalifGridErr(qthLocator.bearingDistance,'FN20qr', 'F030ll');
   });
+
 
 });
