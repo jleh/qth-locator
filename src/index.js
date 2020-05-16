@@ -1,7 +1,7 @@
 // qth-locator  Copyright 2019 Juuso Lehtinen https://github.com/jleh/qth-locator/  MIT License
 "use strict";
 
-var CHAR_CODE_OFFSET = 65;
+const CHAR_CODE_OFFSET = 65;
 
 const isValidLocatorString = locatorString => locatorString.match(/^[A-R][A-R]\d\d[a-x][a-x]/) !== null;
 

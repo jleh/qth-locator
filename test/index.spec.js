@@ -16,10 +16,26 @@ describe('QTH locator', () => {
     expect(BDPair.deg).toBeCloseTo(deg);
   };
 
+
+
+  const expectInvalifGridErr = (fn,a,b) => {   
+    expect.assertions(2);
+
+    try {
+      fn(a,b);
+    } catch (error) {
+        expect(error).toHaveProperty('message', 'Input is not valid locator string');
+        expect(error).toBeInstanceOf(Error);
+    }
+
+    // expect(qthLocator.locatorToLatLng('RR73')).toThrow(Error);
+  };
+
+
   it('Converts locator string to coordinates', () => {
     expectCoordinates(qthLocator.locatorToLatLng('KP20le'), 60.188, 24.958);
     expectCoordinates(qthLocator.locatorToLatLng('FN31pr'), 41.729, -72.708);
-    expectCoordinates(qthLocator.locatorToLatLng('FN20'), 40.48, -75.04);
+    expectCoordinates(qthLocator.locatorToLatLng('FN20'), 40.48, -75.04); 
   });
 
   it('Can calculate distance between two squares', () => {
@@ -38,5 +54,29 @@ describe('QTH locator', () => {
     expectBearDist(qthLocator.bearingDistance('FN20qr', 'FN30qr'), 168.52, 89.35);
   });
 
+
+  it('Detect invalid grid', () => {   
+    expectInvalifGridErr(qthLocator.locatorToLatLng,'RZ73');
+  });
+
+  // it('Detect debatable grid', () => {   
+  //   expectInvalifGridErr(qthLocator.locatorToLatLng,'RR73');
+  // });
+
+  it('Detect short grid', () => {   
+    expectInvalifGridErr(qthLocator.locatorToLatLng,'R73');
+  });
+
+  it('detect invaild grid in ', () => {   
+    expectInvalifGridErr(qthLocator.bearingDistance,'RS73', 'FN30qr');
+  });
+
+  it('Can calculate distance and bearing between two close squares', () => {   
+    expectInvalifGridErr(qthLocator.bearingDistance,'FN20qr', 'FN3');
+  });
+
+  it('Can calculate distance and bearing between two close squares', () => {   
+    expectInvalifGridErr(qthLocator.bearingDistance,'FN20qr', 'F030ll');
+  });
 
 });
