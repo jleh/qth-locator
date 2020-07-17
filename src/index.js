@@ -3,7 +3,7 @@
 
 const CHAR_CODE_OFFSET = 65;
 
-const isValidLocatorString = locatorString => locatorString.match(/^[A-R][A-R]\d\d[a-x][a-x]/) !== null;
+const isValidLocatorString = locatorString => locatorString.match(/^[A-Ra-r][A-Ra-r]\d\d[A-Xa-x][A-Xa-x]/) !== null;
 
 const charToNumber = char => char.toUpperCase().charCodeAt(0) - CHAR_CODE_OFFSET;
 
