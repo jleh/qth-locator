@@ -24,12 +24,12 @@
   "author": "Juuso Lehtinen",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.4.4",
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
-    "eslint": "^5.16.0",
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "eslint": "^7.4.0",
     "husky": "^4.2.5",
-    "jest": "^24.8.0"
+    "jest": "^26.1.0"
   },
   "husky": {
     "hooks": {
