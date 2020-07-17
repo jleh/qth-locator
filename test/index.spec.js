@@ -6,6 +6,11 @@ describe('QTH locator', () => {
     expect(qthLocator.isValidLocatorString('ZZ20le')).toBe(false);
   });
 
+  it('Can validate input case insensitive', () => {
+    expect(qthLocator.isValidLocatorString('kp20le')).toBe(true);
+    expect(qthLocator.isValidLocatorString('KP20LE')).toBe(true);
+  });
+
   const expectCoordinates = (coords, lat, lng) => {
     expect(coords[0]).toBeCloseTo(lat);
     expect(coords[1]).toBeCloseTo(lng);
