@@ -10,7 +10,9 @@
   "scripts": {
     "build": "rm -rf lib && babel src -d lib",
     "prepare": "npm run build",
-    "test": "jest test"
+    "test": "jest test",
+    "lint": "eslint src/**/*.js test/**/*.js",
+    "pretest": "npm run lint"
   },
   "keywords": [
     "maidenhead",
@@ -26,6 +28,12 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "eslint": "^5.16.0",
+    "husky": "^4.2.5",
     "jest": "^24.8.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
   }
 }
