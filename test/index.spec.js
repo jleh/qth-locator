@@ -21,27 +21,9 @@ describe('QTH locator', () => {
     expect(BDPair.deg).toBeCloseTo(deg);
   };
 
-  const expectInvalidGridErr = (fn, a, b) => {
-    expect.assertions(2);
+  const expectInvalidGridErr = fn => expect(fn).toThrow('Input is not valid locator string');
 
-    try {
-      fn(a, b);
-    } catch (error) {
-      expect(error).toHaveProperty('message', 'Input is not valid locator string');
-      expect(error).toBeInstanceOf(Error);
-    }
-  };
-
-  const expectInvalidLatLngErr = (fn, a, b) => {
-    expect.assertions(4);
-
-    try {
-      fn(a, b);
-    } catch (error) {
-      expect(error).toHaveProperty('message', 'Input is not a valid coordinate');
-      expect(error).toBeInstanceOf(Error);
-    }
-  };
+  const expectInvalidLatLngErr = fn => expect(fn).toThrow('Input is not a valid coordinate');
 
   it('Converts locator string to coordinates', () => {
     expectCoordinates(qthLocator.locatorToLatLng('KP20le'), 60.188, 24.958);
@@ -66,7 +48,7 @@ describe('QTH locator', () => {
   });
 
   it('Detect invalid grid', () => {
-    expectInvalidGridErr(qthLocator.locatorToLatLng, 'RZ73');
+    expectInvalidGridErr(() => qthLocator.locatorToLatLng('RZ73'));
   });
 
   it('Locate debatable grid - It is in spec!', () => {
@@ -74,11 +56,11 @@ describe('QTH locator', () => {
   });
 
   it('Detect short grid', () => {
-    expectInvalidGridErr(qthLocator.locatorToLatLng, 'R73');
+    expectInvalidGridErr(() => qthLocator.locatorToLatLng('R73'));
   });
 
   it('detect invalid grid in bearingDistance 1', () => {
-    expectInvalidGridErr(qthLocator.bearingDistance, 'FN20qr', 'F030ll');
+    expectInvalidGridErr(() => qthLocator.bearingDistance('FN20qr', 'F030ll'));
   });
 
   it('Converts latLng to grid', () => {
@@ -88,13 +70,11 @@ describe('QTH locator', () => {
     expect(qthLocator.latLngToLocator(-22.904788, -43.184915)).toBe('GG87jc');
   });
 
-  it('Throws error for invalid latitude', () => {
-    expectInvalidLatLngErr(qthLocator.latLngToLocator, 91, 120);
-    expectInvalidLatLngErr(qthLocator.latLngToLocator, -91, 120);
-  });
-
-  it('Throws error for invalid longitude', () => {
-    expectInvalidLatLngErr(qthLocator.latLngToLocator, 55, -181);
-    expectInvalidLatLngErr(qthLocator.latLngToLocator, 55, 181);
+  it('Throws error for invalid coordinates', () => {
+    expectInvalidLatLngErr(() => qthLocator.latLngToLocator(91, 120));
+    expectInvalidLatLngErr(() => qthLocator.latLngToLocator(-91, 120));
+    expectInvalidLatLngErr(() => qthLocator.latLngToLocator(55, 181));
+    expectInvalidLatLngErr(() => qthLocator.latLngToLocator(55, -181));
+    expectInvalidLatLngErr(() => qthLocator.latLngToLocator(-91, -181));
   });
 });
