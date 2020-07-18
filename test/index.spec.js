@@ -21,7 +21,7 @@ describe('QTH locator', () => {
     expect(BDPair.deg).toBeCloseTo(deg);
   };
 
-  const expectInvalifGridErr = (fn, a, b) => {
+  const expectInvalidGridErr = (fn, a, b) => {
     expect.assertions(2);
 
     try {
@@ -55,7 +55,7 @@ describe('QTH locator', () => {
   });
 
   it('Detect invalid grid', () => {
-    expectInvalifGridErr(qthLocator.locatorToLatLng, 'RZ73');
+    expectInvalidGridErr(qthLocator.locatorToLatLng, 'RZ73');
   });
 
   it('Locate debatable grid - It is in spec!', () => {
@@ -63,11 +63,11 @@ describe('QTH locator', () => {
   });
 
   it('Detect short grid', () => {
-    expectInvalifGridErr(qthLocator.locatorToLatLng, 'R73');
+    expectInvalidGridErr(qthLocator.locatorToLatLng, 'R73');
   });
 
   it('detect invalid grid in bearingDistance 1', () => {
-    expectInvalifGridErr(qthLocator.bearingDistance, 'FN20qr', 'F030ll');
+    expectInvalidGridErr(qthLocator.bearingDistance, 'FN20qr', 'F030ll');
   });
 
   it('Converts latLng to grid', () => {
