@@ -32,6 +32,17 @@ describe('QTH locator', () => {
     }
   };
 
+  const expectInvalidLatLngErr = (fn, a, b) => {
+    expect.assertions(4);
+
+    try {
+      fn(a, b);
+    } catch (error) {
+      expect(error).toHaveProperty('message', 'Input is not a valid coordinate');
+      expect(error).toBeInstanceOf(Error);
+    }
+  };
+
   it('Converts locator string to coordinates', () => {
     expectCoordinates(qthLocator.locatorToLatLng('KP20le'), 60.188, 24.958);
     expectCoordinates(qthLocator.locatorToLatLng('FN31pr'), 41.729, -72.708);
@@ -75,5 +86,15 @@ describe('QTH locator', () => {
     expect(qthLocator.latLngToLocator(60.179, 24.945)).toBe('KP20le');
     expect(qthLocator.latLngToLocator(-33.886048, 151.193546)).toBe('QF56oc');
     expect(qthLocator.latLngToLocator(-22.904788, -43.184915)).toBe('GG87jc');
+  });
+
+  it('Throws error for invalid latitude', () => {
+    expectInvalidLatLngErr(qthLocator.latLngToLocator, 91, 120);
+    expectInvalidLatLngErr(qthLocator.latLngToLocator, -91, 120);
+  });
+
+  it('Throws error for invalid longitude', () => {
+    expectInvalidLatLngErr(qthLocator.latLngToLocator, 55, -181);
+    expectInvalidLatLngErr(qthLocator.latLngToLocator, 55, 181);
   });
 });

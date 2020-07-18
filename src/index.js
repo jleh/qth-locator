@@ -57,7 +57,13 @@ const bearingDistance = (from, to) => {
 
 const distance = (from, to) => bearingDistance(from, to).km;
 
+const isValidPoint = (lat, lng) => (lat >= -90 && lat <= 90) && (lng >= -180 && lng <= 180);
+
 const latLngToLocator = (lat, lng) => {
+  if (!isValidPoint(lat, lng)) {
+    throw new Error('Input is not a valid coordinate');
+  }
+
   const longitude = lng + 180;
   const latitude = lat + 90;
 
