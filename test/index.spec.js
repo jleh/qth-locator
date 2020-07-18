@@ -69,4 +69,11 @@ describe('QTH locator', () => {
   it('detect invalid grid in bearingDistance 1', () => {
     expectInvalifGridErr(qthLocator.bearingDistance, 'FN20qr', 'F030ll');
   });
+
+  it('Converts latLng to grid', () => {
+    expect(qthLocator.latLngToLocator(14.3125, -32.125)).toBe('HK34wh');
+    expect(qthLocator.latLngToLocator(60.179, 24.945)).toBe('KP20le');
+    expect(qthLocator.latLngToLocator(-33.886048, 151.193546)).toBe('QF56oc');
+    expect(qthLocator.latLngToLocator(-22.904788, -43.184915)).toBe('GG87jc');
+  });
 });
