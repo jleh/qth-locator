@@ -14,16 +14,16 @@ const locatorToLatLng = (locatorString) => {
     throw new Error('Input is not valid locator string');
   }
 
-  const squareLng = charToNumber(locatorString[0]) * 20;
-  const squareLat = charToNumber(locatorString[1]) * 10;
-  const gridLng = Number.parseInt(locatorString[2]) * 2;
-  const gridLat = Number.parseInt(locatorString[3]);
+  const fieldLng = charToNumber(locatorString[0]) * 20;
+  const fieldLat = charToNumber(locatorString[1]) * 10;
+  const squareLng = Number.parseInt(locatorString[2]) * 2;
+  const squareLat = Number.parseInt(locatorString[3]);
   const subsquareLng = (charToNumber(locatorString[4]) + 0.5) / 12;
   const subsquareLat = (charToNumber(locatorString[5]) + 0.5) / 24;
 
   return [
-    squareLat + gridLat + subsquareLat - 90,
-    squareLng + gridLng + subsquareLng - 180
+    fieldLat + squareLat + subsquareLat - 90,
+    fieldLng + squareLng + subsquareLng - 180
   ];
 };
 
@@ -67,18 +67,16 @@ const latLngToLocator = (lat, lng) => {
   const longitude = lng + 180;
   const latitude = lat + 90;
 
-  const squareLng = numberToChar(Math.floor(longitude / 20));
-  const squareLat = numberToChar(Math.floor(latitude / 10));
+  const fieldLng = numberToChar(Math.floor(longitude / 20));
+  const fieldLat = numberToChar(Math.floor(latitude / 10));
 
-  const fieldLng = Math.floor(longitude % 20 / 2);
-  const fieldLat = Math.floor(latitude % 10);
+  const squareLng = Math.floor(longitude % 20 / 2);
+  const squareLat = Math.floor(latitude % 10);
 
   const subsquareLng = numberToChar(Math.floor((longitude % 20 % 2) * 12)).toLowerCase();
-  const subsquareLat = numberToChar((latitude % 10 - fieldLat) * 24).toLowerCase();
+  const subsquareLat = numberToChar((latitude % 10 - squareLat) * 24).toLowerCase();
 
-  return squareLng + squareLat
-    + fieldLng + fieldLat
-    + subsquareLng + subsquareLat;
+  return fieldLng + fieldLat + squareLng + squareLat + subsquareLng + subsquareLat;
 };
 
 module.exports = {
