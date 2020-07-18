@@ -6,6 +6,7 @@ const CHAR_CODE_OFFSET = 65;
 const isValidLocatorString = locatorString => locatorString.match(/^[A-Ra-r][A-Ra-r]\d\d[A-Xa-x][A-Xa-x]/) !== null;
 
 const charToNumber = char => char.toUpperCase().charCodeAt(0) - CHAR_CODE_OFFSET;
+const numberToChar = number => String.fromCharCode(number + CHAR_CODE_OFFSET);
 
 const locatorToLatLng = (locatorString) => {
   locatorString += 'll'; // append subsquare in case is 4 chars long...  If not, is ignored.
@@ -56,9 +57,28 @@ const bearingDistance = (from, to) => {
 
 const distance = (from, to) => bearingDistance(from, to).km;
 
+const latLngToLocator = (lat, lng) => {
+  const longitude = lng + 180;
+  const latitude = lat + 90;
+
+  const squareLng = numberToChar(Math.floor(longitude / 20));
+  const squareLat = numberToChar(Math.floor(latitude / 10));
+
+  const fieldLng = Math.floor(longitude % 20 / 2);
+  const fieldLat = Math.floor(latitude % 10);
+
+  const subsquareLng = numberToChar(Math.floor((longitude % 20 % 2) * 12)).toLowerCase();
+  const subsquareLat = numberToChar((latitude % 10 - fieldLat) * 24).toLowerCase();
+
+  return squareLng + squareLat
+    + fieldLng + fieldLat
+    + subsquareLng + subsquareLat;
+};
+
 module.exports = {
-  isValidLocatorString: isValidLocatorString,
-  locatorToLatLng: locatorToLatLng,
-  distance: distance,
-  bearingDistance: bearingDistance
+  isValidLocatorString,
+  locatorToLatLng,
+  distance,
+  bearingDistance,
+  latLngToLocator
 };
