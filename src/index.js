@@ -40,8 +40,9 @@ const bearingDistance = (from, to) => {
   const a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(fromLat) * Math.cos(toLat);
   const b = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  const y = (dLon) * Math.cos(fromLat) * Math.cos(toLat);
-  const x = Math.sin(toLat) - Math.sin(fromLat) * Math.cos(b);
+  // Initial great-circle bearing
+  const y = Math.sin(dLon) * Math.cos(toLat);
+  const x = Math.cos(fromLat) * Math.sin(toLat) - Math.sin(fromLat) * Math.cos(toLat) * Math.cos(dLon);
 
   let az = Math.atan2(y, x);
 

@@ -40,7 +40,13 @@ describe('QTH locator', () => {
   });
 
   it('Can calculate distance and bearing between two far squares', () => {
-    expectBearDist(qthLocator.bearingDistance('FN20qr', 'KP21ol'), 6586.72, 49.16);
+    expectBearDist(qthLocator.bearingDistance('FN20qr', 'KP21ol'), 6586.72, 33.20);
+  });
+
+  it('Can calculate bearing across the date line and over the pole', () => {
+    expect(qthLocator.bearingDistance('FN31pr', 'PM95vq').deg).toBeCloseTo(333.91);
+    expect(qthLocator.bearingDistance('PM95vq', 'FN31pr').deg).toBeCloseTo(23.83);
+    expect(qthLocator.bearingDistance('KP20le', 'FN31pr').deg).toBeCloseTo(299.43);
   });
 
   it('Can calculate distance and bearing between two close squares', () => {
